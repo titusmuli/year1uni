@@ -1,0 +1,34 @@
+# QUESTION 3 ANSWER
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy import stats
+
+# For CuSO4
+x = np.array([40, 60, 80])
+yCu = np.array([0.058, 0.095, 0.124])
+
+a, b, r, p, err = stats.linregress(x, yCu)
+
+plt.scatter(x, yCu, marker='+', color='red')
+plt.plot(x, a*x+b, color='blue')
+
+yUk = float(0.117) # Absorbance of Unknown Solution
+xUk = float((0.117-b) /a) # Concentration of Unknown Solution
+
+plt.scatter(xUk, yUk, marker='x', color='red')
+plt.plot((xUk, xUk), (0, yUk), 'r--', scaley = False, color='green')
+plt.plot((0, xUk), (yUk, yUk), 'r--', scaley = False, color='green')
+
+plt.plot((xUk, 40), (yUk, a*(40)+b), 'r--', scaley = False, color='blue')
+
+plt.xlabel('% CONCENTRATION of solution (mMol/L)')
+plt.ylabel('ABSOBANCE (CuSO4)')
+plt.title('Absorbance(y) vs Concentration(mMol/L) CuSO4')
+
+plt.ylim(0, 0.135)
+plt.xlim(0, 100)
+
+print('Percentage Concentration= \033[1;34;47m', xUk,'%')
+print('\033[1;30;47mConcentration of Unknown CuSO4 Solution= \033[1;34;47m', xUk*21/100,'mMol/L')
+
+plt.show()
